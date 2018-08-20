@@ -1,6 +1,7 @@
 # Starter Bootstrap 4 Template - tpl_starter_bootstrap_4
 
-This template has no styling.  It simple installs using Bootstrap 4.  It uses a CDN to load it.  
+This template has no styling.  It simply installs a basic template with Bootstrap 4, which it loads from a CDN.
+(to do.  Fallback to local if remote is not available or fall back to alternate CDN)  
 
 If you want the SCSS to work you will need a plugin, I choose [https://extensions.joomla.org/extension/scss-compiler/](https://extensions.joomla.org/extension/scss-compiler/)
 
@@ -18,11 +19,11 @@ First of all, set up the template to work on a page or pages.  I usually create 
 
 Assign some modules to that page.  You will see the names of the module positions in the index.php file.
 
-Open one of the modules you have assigned.  Go to Advanced.  You have an option to set some CSS.
+Open one of the modules you have assigned.  Go to Advanced.  You will see Module Class Suffix.
+
+Enter a CSS class, we'll use the Bootstrap 4 classes to constrain the grid.  e.g **col-6** which will make the module half the width of the page.
 
 Here are all of the classes in Bootstrap []https://getbootstrap.com/docs/4.0/layout/grid/](https://getbootstrap.com/docs/4.0/layout/grid/)
-
-Use one, for example *col-6* which will make it half the width of the page.
 
 Set up another module with a different Bootstrap column size so you can see the difference.
 
@@ -39,3 +40,6 @@ Insert some SCSS.  Make sure the plugin is activated and it will compile to temp
 I have already given you the Bootstrap4 media queries to get started.  They are in _responsive.scss
 
 #### We encourage Pull requests.  Please make this template better.
+
+###### Thanks to [Elisa Foltyn](https://www.joomla.de/wissen/joomla-tipps-im-advent/470-tuerchen-nummer-10) who created an excellent tutorial on creating your own Joomla! template on joomla.de without which I would not have managed this.  
+###### And thanks to [Charlie Lodder](https://volunteers.joomla.org/joomlers/1813-charlie-lodder) for answering a question on Joomla! Stack Exchange which helped me to understand Module Chromes too.
