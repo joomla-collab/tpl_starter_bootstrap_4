@@ -1,0 +1,144 @@
+<?php
+/**
+ * @package    tpl_joomla_london
+ *
+ * @author     Eoin <your@email.com>
+* @copyright  A copyright
+* @license    GNU General Public License version 2 or later; see LICENSE.txt
+* @link       http://your.url.com
+*/
+
+defined('_JEXEC') or die;
+
+use \Joomla\CMS\Factory;
+
+$app             = Factory::getApplication();
+$doc             = Factory::getDocument();
+$user            = Factory::getUser();
+$this->language  = $doc->language;
+$this->direction = $doc->direction;
+
+// Output as HTML5
+$doc->setHtml5(true);
+
+// Getting params from template
+$params = $app->getTemplate(true)->params;
+
+// Detecting Active Variables
+$option   = $app->input->getCmd('option', '');
+$view     = $app->input->getCmd('view', '');
+$layout   = $app->input->getCmd('layout', '');
+$task     = $app->input->getCmd('task', '');
+$itemid   = $app->input->getCmd('Itemid', '');
+$sitename = $app->get('sitename');
+
+
+/* Component? */
+$component = ($this->params->get('mainoutput'));
+
+// Count Module Positions
+
+function modulesAvailable($position) {
+$position = ($doc->countModules($position));
+}
+
+
+/*
+$banners = ($this->countModules('banners'));
+$debug = ($this->countModules('debug'));
+$offcanvas = ($this->countModules('offcanvas'));
+$head = ($this->countModules('head'));
+$mainBanner = ($this->countModules('mainBanner'));
+$belowBanner = ($this->countModules('belowBanner'));
+$middle = ($this->countModules('middle'));
+$bottom = ($this->countModules('bottom'));
+$footer = ($this->countModules('footer'));
+$belowFooter = ($this->countModules('belowFooter'));
+*/
+
+// Avoids reusing $this->baseurl . templates . $this->template
+$templateUrl = $this->baseurl . '/templates/' . $this->template;;
+
+$doc->addScriptVersion($templateUrl . '/js/template.js', array('version' => 'auto'));
+
+// Add Stylesheets
+$doc->addStyleSheetVersion($templateUrl . '/css/template.css', array('version' => 'auto'));
+
+
+// Check for a custom CSS file
+$userCss = JPATH_SITE . '/templates/' . $this->template . '/css/user.css';
+
+if (file_exists($userCss) && filesize($userCss) > 0)
+{
+$this->addStyleSheetVersion($templateUrl . '/css/user.css', array('version' => 'auto'));
+}
+?>
+
+<!DOCTYPE html>
+<html lang="<?php echo $this->language; ?>" dir="<?php echo $this->direction; ?>">
+<head>
+    <jdoc:include type="head" />
+</head>
+<body>
+<!-- Body -->
+<div class="body">
+    <a href="<?php echo $this->baseurl; ?>/">
+        <?php if ($this->params->get('sitedescription')) : ?>
+        <?php echo '<div class="site-description">' . htmlspecialchars($this->params->get('sitedescription'), ENT_COMPAT, 'UTF-8') . '</div>'; ?>
+<?php endif; ?>
+</a>
+
+
+<?php if (modulesAvailable(offcanvas)) : ?>
+<jdoc:include type="modules" name="<?php $position ?>" style="none" />
+<?php endif ?>
+
+<?php if (modulesAvailable(head)) : ?>
+<jdoc:include type="modules" name=" <?php $position ?> />
+	<?php endif ?>
+
+	<?php if (modulesAvailable(mainBanner)) : ?>
+        <jdoc:include type="modules" name=" <?php $position ?> />
+<?php endif ?>
+
+<?php if (modulesAvailable(belowBanner)) : ?>
+<jdoc:include type="modules" name=" <?php $position ?> />
+	<?php endif ?>
+
+	<?php if (modulesAvailable(middle)) : ?>
+		<?php if ($component == "1") : ?>
+<jdoc:include type="message" />
+<jdoc:include type="component" />
+<?php endif ?>
+<jdoc:include type="modules" name=" <?php $position ?> />
+	<?php endif ?>
+
+	<?php if (modulesAvailable(bottom)) : ?>
+        <jdoc:include type="modules" name=" <?php $position ?> />
+<?php endif ?>
+
+<?php if (modulesAvailable(footer)) : ?>
+<jdoc:include type="modules" name=" <?php $position ?> />
+	<?php endif ?>
+
+	<?php if (modulesAvailable(belowFooter)) : ?>
+        <jdoc:include type="modules" name=" <?php $position ?> />
+<?php endif ?>
+
+
+
+</div>
+<!-- tpl_joomla_londonter -->
+<belowFooter>
+    <jdoc:include type="modules" name="belowFooter" />
+    <p>
+        &copy; <?php echo date('Y'); ?> <?php echo $sitename; ?>
+    </p>
+</belowFooter>
+
+<?php if (modulesAvailable(offcanvas)) : ?>
+<jdoc:include type="modules" name="debug" style="none" />
+<?php endif ?>
+
+</body>
+</html>
