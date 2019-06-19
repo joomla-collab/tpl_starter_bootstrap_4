@@ -3,7 +3,7 @@
 This template has no styling.  It simply installs a basic template with Bootstrap 4, which it loads from a CDN.
 (to do.  Fallback to local if remote is not available or fall back to alternate CDN)  
 
-If you want the SCSS to work you will need a plugin, I choose [https://extensions.joomla.org/extension/scss-compiler/](https://extensions.joomla.org/extension/scss-compiler/)
+If you want the SCSS to work you will need a plugin, I chose [https://extensions.joomla.org/extension/scss-compiler/](https://extensions.joomla.org/extension/scss-compiler/)
 
 ## What now
 
